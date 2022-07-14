@@ -2,31 +2,30 @@
  * 倒计时状态
  */
  export enum CountdownStates {
-  PENDING = 'pending', // 无监听状态
-  RESET = 'reset',
-  START = 'start',
-  RUNNING = 'running',
-  STOPPED = 'stopped',
+  PENDING = "pending", // 无监听状态
+  RESET = "reset",
+  START = "start",
+  RUNNING = "running",
+  STOPPED = "stopped",
 }
 /**
  * 运行返回数据
  */
 export type RunningReturn = Record<
-  'day' | 'hour' | 'minute' | 'second' | 'millisecond',
+  "day" | "hour" | "minute" | "second" | "millisecond",
   number | string
 >;
 /**
  * 事件类型
  */
-type DefaultFunctionType = (...args: any[]) => void;
+type DefaultFunctionType = (...any: any) => void;
 type RunningFunctionType = (param: RunningReturn) => void;
+type onFunctionType<T> = T extends CountdownStates.RUNNING
+  ? RunningFunctionType
+  : DefaultFunctionType;
 
 type FunctionInArrayTroughCountdownStatesType<T extends CountdownStates> =
-  Array<
-    T extends CountdownStates.RUNNING
-      ? RunningFunctionType
-      : DefaultFunctionType
-  >;
+  Array<onFunctionType<T>>;
 
 type OnEventsWithCountdownStatesType = {
   [key in CountdownStates]?: FunctionInArrayTroughCountdownStatesType<key>;
@@ -52,14 +51,14 @@ export class CountdownCore {
   private _onEvents: OnEventsWithCountdownStatesType = {};
 
   /**
-   * @param endTimeF
+   * @param endTime
    * @param speed  单位ms且最小为100ms
    */
   constructor(endTime: number, speed = 1000) {
     this._state = CountdownStates.PENDING;
 
-    if (typeof endTime !== 'number' || typeof speed !== 'number') {
-      throw new TypeError('endTime or speed must be a number');
+    if (typeof endTime !== "number" || typeof speed !== "number") {
+      throw new TypeError("endTime or speed must be a number");
     }
     this._endTime = endTime;
     this._remainTime = endTime;
@@ -97,12 +96,12 @@ export class CountdownCore {
       this._emit(this._state);
     }
   }
-
-  public on(type: CountdownStates, handler: DefaultFunctionType) {
-    let handlerList = this._onEvents.hasOwnProperty(type)
-      ? [...(this._onEvents[type] as Array<DefaultFunctionType>), handler]
-      : [handler];
-    this._onEvents[type] = handlerList;
+  on(type: Exclude<CountdownStates, CountdownStates.RUNNING>, handler: DefaultFunctionType): void;
+  on(type: CountdownStates.RUNNING, handler: RunningFunctionType): void;
+  public on(type: CountdownStates, handler: onFunctionType<CountdownStates>) {
+    this._onEvents[type] = this._onEvents.hasOwnProperty(type)
+    ? [...this._onEvents[type]!, handler]
+    : [handler];
   }
 
   private _countdown(): void {
@@ -114,7 +113,7 @@ export class CountdownCore {
     this._date = Date.now();
     this._remainTime = Math.max(
       this._remainTime - Math.max(this._diffTime, this._speed),
-      0,
+      0
     );
     this._diffTime = this._speed;
 
@@ -126,9 +125,8 @@ export class CountdownCore {
     }
 
     this._timer = setTimeout(() => {
-      const nowDate = Date.now();
       this._diffTime =
-        Math.floor((nowDate - this._date) / this._speed) * this._speed;
+        Math.floor((Date.now() - this._date) / this._speed) * this._speed;
       this._countdown();
     }, this._speed);
   }
@@ -161,7 +159,7 @@ export class CountdownCore {
     if (this._onEvents.hasOwnProperty(type)) {
       if (type === CountdownStates.RUNNING) {
         this._onEvents[type]?.forEach((handler) =>
-          handler(params as RunningReturn),
+          handler(params as RunningReturn)
         );
       } else {
         this._onEvents[type]?.forEach((handler) => handler());
