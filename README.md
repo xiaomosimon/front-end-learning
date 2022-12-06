@@ -70,6 +70,7 @@
 
 ##### Web
 
+[Web入门]: https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web    "[ ]"
 
 
 #### [ ]	Typescript
@@ -108,6 +109,8 @@
 
 ##### Web
 
+[Web入门]: https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web    "[ ]"
+[JavaScript]: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript   "[ ]"
 
 
 #### [ ]	Nodejs
@@ -295,3 +298,4 @@
 
 [免费技术开源图书库]: https://github.com/xiaomosimon/free-programming-books/blob/main/books/free-programming-books-zh.md
 [freecodecamp]:https://www.freecodecamp.org/learn
+[MDN]: https://developer.mozilla.org/zh-CN/docs/Web

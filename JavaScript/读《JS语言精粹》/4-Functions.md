@@ -337,6 +337,11 @@
    var newAdd = add.curry(1); 
    newAdd(6) === 7;
 
+   Function.prototype.method = function (name, func) {
+     this.prototype[name] = func;
+     return this;
+   };
+
    Function.method('curry', function() {
       var slice = Array.prototype.slice;
       var args = slice.apply(arguments), that = this; // arguments不是数组，没有数组方法，slice让其拥有数组方法的常规数组
