@@ -1,0 +1,50 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style></style>
+  </head>
+  <body>
+    <div>
+      <h1>My shopping list</h1>
+      <div class="operate">
+        <label for="input">Enter a new item</label>
+        <input id="input" type="text" />
+        <button type="button">Add item</button>
+      </div>
+      <ul></ul>
+    </div>
+    <script>
+      const $input = document.querySelector('#input');
+      const $button = document.querySelector('.operate button');
+      const $ul = document.querySelector('ul');
+      $input.value = '';
+      let newButton;
+
+      function removeItem() {
+        this.removeEventListener('click', removeItem);
+        $ul.removeChild(this.parentNode);
+        $input.focus();
+      }
+
+      $button.addEventListener('click', function addItem() {
+        const newLi = document.createElement('li');
+        newLi.textContent = $input.value + ' ';
+        newLi.appendChild(cloneButton());
+        $ul.appendChild(newLi);
+      });
+
+      function cloneButton() {
+        if (!newButton) {
+          newButton = document.createElement('button');
+          newButton.setAttribute('type', 'button');
+          newButton.textContent = 'Delete';
+        }
+        const $button = newButton.cloneNode(true);
+        $button.addEventListener('click', removeItem);
+        return $button;
+      }
+    </script>
+  </body>
+</html>

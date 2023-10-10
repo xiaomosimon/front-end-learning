@@ -1,0 +1,139 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas">
+      <p>反馈信息</p>
+    </canvas>
+    <!-- <script>
+      const canvas = document.querySelector('#canvas');
+      const width = (canvas.width = window.innerWidth);
+      const height = (canvas.height = window.innerHeight);
+      const ctx = canvas.getContext('2d');
+
+      ctx.fillStyle = 'rgb(0,0,0)';
+      ctx.fillRect(0, 0, width, height);
+
+      ctx.translate(width / 2, height / 2);
+
+      const image = new Image();
+      image.src =
+        'https://raw.githubusercontent.com/mdn/learning-area/main/javascript/apis/drawing-graphics/getting-started/1_canvas_template/walk-right.png';
+      image.onload = draw;
+
+      let sprite = 0;
+      let posX = 0;
+
+      function draw() {
+        ctx.fillRect(-(width / 2), -(height / 2), width, height);
+        ctx.drawImage(
+          image,
+          sprite * 102,
+          0,
+          102,
+          148,
+          0 + posX,
+          -74,
+          102,
+          148
+        );
+
+        if (posX % 13 === 0) {
+          if (sprite === 5) {
+            sprite = 0;
+          } else {
+            sprite++;
+          }
+        }
+
+        if (posX > width / 2) {
+          let newStartPos = -(width / 2 + 102);
+          posX = Math.ceil(newStartPos);
+          console.log(posX);
+        } else {
+          posX += 2;
+        }
+
+        window.requestAnimationFrame(draw);
+      }
+    </script> -->
+    <!-- <script>
+      const canvas = document.querySelector('#canvas');
+      const width = (canvas.width = window.innerWidth);
+      const height = (canvas.height = window.innerHeight);
+
+      const ctx = canvas.getContext('2d');
+
+      ctx.fillStyle = 'rgb(0, 0, 0)';
+      ctx.fillRect(0, 0, width, height);
+
+      // ctx.fillStyle = 'rgb(255, 0, 0)';
+      // ctx.fillRect(50, 50, 100, 150);
+
+      // ctx.fillStyle = 'rgb(0, 255, 0)';
+      // ctx.fillRect(75, 75, 100, 100);
+
+      // ctx.strokeStyle = 'rgb(111, 176, 255)';
+      // ctx.lineWidth = 10;
+      // ctx.strokeRect(25, 25, 175, 200);
+
+      // 角度转弧度
+      // function degreeToRadian(degrees) {
+      //   return (degrees * Math.PI) / 180;
+      // }
+      // ctx.fillStyle = 'rgb(255, 222, 21)';
+      // ctx.beginPath();
+      // ctx.arc(200, 106, 50, degreeToRadian(-45), degreeToRadian(45), true);
+      // ctx.lineTo(200, 106);
+      // ctx.fill();
+
+      // ctx.strokeStyle = 'white';
+      // // ctx.lineWidth = 4;
+      // ctx.font = '800 36px arial ';
+      // ctx.strokeText('canvas text', 50, 50);
+
+      // ctx.fillStyle = 'red';
+      // ctx.font = '800 48px georgia';
+      // ctx.fillText('Canvas text', 50, 150);
+
+      // var image = new Image();
+      // image.src = "https://dev.safetytaxfree.net/h5/solar/images/mail-logo.png";
+      // image.onload = function() {
+      //   ctx.drawImage(image, 30, 30, 185, 175, 20, 20, 385, 575);
+      // }
+
+      // ctx.translate(width / 2, width / 2); // 画布原点从左上角移动到画布中点
+      // function rand(min, max) {
+      //   return Math.floor(Math.random() * (max - min + 1)) + min;
+      // }
+
+      // var length = 240;
+      // var moveOffset = 20;
+      // for (let i = 0; i < length; i++) {
+      //   ctx.fillStyle = `rgba(${255 - length}, 100, ${255 - length}, 0.9)`;
+      //   ctx.beginPath();
+      //   ctx.moveTo(moveOffset, moveOffset);
+      //   ctx.lineTo(moveOffset + length, moveOffset);
+      //   ctx.lineTo(
+      //     moveOffset + length / 2,
+      //     moveOffset + (length / 2) * Math.tan(degreeToRadian(60))
+      //   );
+      //   ctx.lineTo(moveOffset, moveOffset);
+      //   ctx.fill();
+
+      //   length--;
+      //   moveOffset += 0.7;
+      //   ctx.rotate(degreeToRadian(5));
+      // }
+    </script> -->
+  </body>
+</html>

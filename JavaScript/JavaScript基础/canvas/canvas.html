@@ -1,0 +1,78 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="toolbar">
+      <input type="color" aria-label="select pen color" value="#ff0000" />
+      <input
+        type="range"
+        min="2"
+        max="50"
+        value="30"
+        aria-label="select pen size"
+      /><span class="output">30</span>
+      <button>Clear canvas</button>
+    </div>
+
+    <canvas id="canvas">
+      <p>Add suitable fallback here.</p>
+    </canvas>
+    <script>
+      const canvas = document.querySelector('#canvas');
+      const clearBtn = document.querySelector('.toolbar button');
+      const colorPicker = document.querySelector('.toolbar input[type=color]');
+      const sizePicker = document.querySelector('.toolbar input[type=range]');
+      const width = (canvas.width = window.innerWidth);
+      const height = (canvas.height = window.innerHeight);
+
+      const ctx = canvas.getContext('2d');
+
+      ctx.fillStyle = 'rgb(0, 0, 0)';
+      ctx.fillRect(0, 0, width, height);
+
+      let curX;
+      let curY;
+      let pressed = false;
+
+      canvas.addEventListener('mousemove', (e) => {
+        curX = e.pageX;
+        curY = e.pageY;
+      });
+
+      canvas.addEventListener('mousedown', () => (pressed = true));
+
+      canvas.addEventListener('mouseup', () => (pressed = false));
+
+      clearBtn.addEventListener("click", () => {
+        ctx.fillStyle = 'rgb(0, 0, 0)';
+        ctx.fillRect(0, 0, width, height);
+      })
+
+      function degreeToRadian(degrees) {
+        return (degrees * Math.PI) / 180;
+      }
+
+      function draw() {
+        if (pressed) {
+          ctx.fillStyle = colorPicker.value;
+          ctx.beginPath();
+          ctx.arc(
+            curX,
+            curY - 85,
+            sizePicker.value,
+            degreeToRadian(0),
+            degreeToRadian(360),
+            false
+          );
+          ctx.fill();
+        }
+        requestAnimationFrame(draw);
+      }
+
+      draw();
+    </script>
+  </body>
+</html>

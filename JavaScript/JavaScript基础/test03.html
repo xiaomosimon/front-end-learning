@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        margin: 0 auto;
+        width: 1000px;
+        display: flex;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container"></div>
+    <script>
+      function generateRandomDiv(count, height) {
+        var list = [];
+        for (var i = 0; i < count; i++) {
+          var oDiv = document.createElement('div');
+          oDiv.style.width = '490px';
+          oDiv.style.height = Math.round(Math.random() * height) + 'px';
+          var rgbSingleColor = Math.round(Math.random() * 255);
+          oDiv.style.backgroundColor =
+            'rgb(' + 151 + ',' + rgbSingleColor + ',' + rgbSingleColor + ')';
+          list.push(oDiv);
+        }
+        return list;
+      }
+      var $container = document.querySelector('.container');
+      var COUNT = 10;
+      var divList = generateRandomDiv(COUNT, 300);
+      var leftList = [];
+      var leftTotal = 0;
+      var rightList = [];
+      var rightTotal = 0;
+      for (var i = 0; i < COUNT; i++) {
+        var currentDivHeight = divList[i].style.height.replace('px', '') - 0;
+        if (leftTotal <= rightTotal) {
+          leftList.push(divList[i]);
+          leftTotal += currentDivHeight;
+        } else {
+          rightList.push(divList[i]);
+          rightTotal += currentDivHeight;
+        }
+      }
+      var oLeftContainer = document.createElement('div');
+      oLeftContainer.width = '49%';
+      var oRightContainer = document.createElement('div');
+      oRightContainer.width = '49%';
+      for (var l = 0; l < leftList.length; l++) {
+        oLeftContainer.appendChild(leftList[l]);
+      }
+      for (var r = 0; r < rightList.length; r++) {
+        oRightContainer.appendChild(rightList[r]);
+      }
+      $container.appendChild(oLeftContainer);
+      $container.appendChild(oRightContainer);
+    </script>
+  </body>
+</html>

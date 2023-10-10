@@ -1,0 +1,42 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let db;
+
+      window.onload = function () {
+        let request = window.indexedDB.open('notes', 1);
+
+        request.onerror = function () {
+          console.log('failed');
+        };
+
+        request.onsuccess = function () {
+          console.log('success');
+
+          db = request.result;
+
+          displayData();
+        };
+
+        request.onupgradeneeded = function (e) {
+          let db = e.target.result; // 获取数据库的引用，相当于request.result
+
+          let objectStore = db.createObjectStore('notes', {
+            keyPath: 'id',
+            autoIncrement: true,
+          });
+
+          objectStore.createIndex('title', 'title', { unique: false });
+          objectStore.createIndex('body', 'body', { unique: false });
+
+          console.log('database setup complete');
+        };
+      };
+    </script>
+  </body>
+</html>
